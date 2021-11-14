@@ -5,5 +5,5 @@ packages:
 
 #Adds webserver to haproxy configfile and restarts haproxy
 runcmd:
- - sudo echo -e "frontend http_front \n bind *:80 \n stats uri /haproxy?stats \n default_backend http_back\n \nbackend http_back \n balance roundrobin \n server <server1 name> <private IP 1>:80 check \n server <server2 name> <private IP 2>:80 check" >> /etc/haproxy/haproxy.cfg
+ - sudo echo -e "frontend http_front \n bind *:80 \n stats uri /haproxy?stats \n default_backend http_back\n \nbackend http_back \n balance roundrobin \n server <server1 name> <public IP 1>:80 check \n server <server2 name> <public IP 2>:80 check" >> /etc/haproxy/haproxy.cfg
  - sudo systemctl restart haproxy
