@@ -1,0 +1,11 @@
+#cloud-config
+#installs apache2 & zip on first boot. Zip is already preinstalled on ubuntu but is included to make sure this script works on all Linux distributions.
+packages:
+ - apache2
+ - zip
+
+#Gets website from Github and unzips it to /var/www/html (-o forces overwrite)
+runcmd:
+ - sudo wget -O /tmp/Website.zip https://github.com/denizhkht/CNT-Gruppenarbeiten/blob/main/CNT-Website.zip?raw=true
+ - sudo unzip -o /tmp/Website.zip -d /var/www/html/
+ - rm -r /tmp/Website.zip
