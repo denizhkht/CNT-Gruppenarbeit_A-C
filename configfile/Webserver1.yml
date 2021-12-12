@@ -1,0 +1,36 @@
+#cloud-config
+#installs apache2, nfs-common on first boot. 
+packages:
+ - apache2
+ - nfs-common
+
+#Create Wireguard Configfile
+write_files:
+ - content: |
+
+    [Interface]
+    Address = 10.4.38.20/24
+    PrivateKey = uLAqWQjftPynhGVr+FjbdgtumikGSSrV3pPa6Nxjh3k=
+
+    [Peer]
+    PublicKey = bMLHrnkECSAPiJlHl6KvT60nEMkwmLDxmr/jRnpmKm0=
+    Endpoint = cloud.tbz.ch:51904
+
+    AllowedIPs = 10.4.38.0/24
+
+    PersistentKeepalive = 25
+   path: /etc/wireguard/wg0.conf
+   permissions: '0600'  
+   owner: root:root
+   
+runcmd:
+ #installs and configures Wireguard
+ - sudo add-apt-repository -y ppa:wireguard/wireguard
+ - sudo apt-get update
+ - sudo apt-get install -y wireguard 
+ - sudo chmod 750 /etc/wireguard
+ - sudo systemctl enable wg-quick@wg0.service
+ - sudo systemctl start wg-quick@wg0.service
+
+#Mounts NFS share for Persistence
+ - sudo mount -t nfs 10.4.38.8:/data/storage/Webserver1 /var/www/html/
