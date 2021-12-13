@@ -10,7 +10,7 @@ write_files:
 
     [Interface]
     Address = 10.4.38.20/24
-    PrivateKey = uLAqWQjftPynhGVr+FjbdgtumikGSSrV3pPa6Nxjh3k=
+    PrivateKey = <Privatekey>
 
     [Peer]
     PublicKey = bMLHrnkECSAPiJlHl6KvT60nEMkwmLDxmr/jRnpmKm0=
